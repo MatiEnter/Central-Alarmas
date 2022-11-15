@@ -42,4 +42,10 @@ public class Administrador extends Usuario implements Configurable, Activable{
 		return false;
 	}
 
+	@Override
+	public boolean activarDesactivarAlarma(Integer idAlarma, String codigoActivacionAlarma, Configurador usuario) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

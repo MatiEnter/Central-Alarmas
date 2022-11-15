@@ -12,7 +12,8 @@ public class Alarma {
 	private String nombreAlarma;
 	Set<Usuario> usuariosValidados;
 	Set<Accion> accionesRealizadas;
-	
+	Set<Sensor> listaDeSensores;
+
 	public Alarma(Integer idAlarma, String codigoActivacionAlarma, String codigoConfiguracionAlarma,
 			String nombreAlarma) {
 		super();
@@ -20,8 +21,9 @@ public class Alarma {
 		this.codigoActivacionAlarma = codigoActivacionAlarma;
 		this.codigoConfiguracionAlarma = codigoConfiguracionAlarma;
 		this.nombreAlarma = nombreAlarma;
-		this.usuariosValidados  = new HashSet<>();
-		this.accionesRealizadas  = new HashSet<>();
+		this.usuariosValidados = new HashSet<>();
+		this.accionesRealizadas = new HashSet<>();
+		this.listaDeSensores = new HashSet<>();
 	}
 
 	public Integer getIdAlarma() {
@@ -72,6 +74,14 @@ public class Alarma {
 		this.accionesRealizadas = accionesRealizadas;
 	}
 
+	public Set<Sensor> getListaDeSensores() {
+		return listaDeSensores;
+	}
+
+	public void setListaDeSensores(Set<Sensor> listaDeSensores) {
+		this.listaDeSensores = listaDeSensores;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(idAlarma);
@@ -88,7 +98,5 @@ public class Alarma {
 		Alarma other = (Alarma) obj;
 		return Objects.equals(idAlarma, other.idAlarma);
 	}
-	
-	
-	
+
 }

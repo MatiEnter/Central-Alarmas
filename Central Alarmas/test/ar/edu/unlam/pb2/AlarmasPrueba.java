@@ -6,7 +6,6 @@ import org.junit.Test;
 
 public class AlarmasPrueba {
 
-
 	Usuario userA = new Activador(40512642, "Nico");
 	Central central = new Central();
 	Alarma alarma = new Alarma(1, "123", "321", "Alarma CR7");
@@ -26,13 +25,19 @@ public class AlarmasPrueba {
 	public void queSePuedaAgregarUnUsuarioConfiguradorAUnaAlarma() {
 		Usuario admin = new Administrador(40512640, "Matias");
 		Central central = new Central();
+
+		Integer idAlarma = 1;
+		String codigoActivacionAlarma = "123";
+		String codigoConfiguracionAlarma = "321";
+		String nombreAlarma = "CR7";
+		Alarma alarma = new Alarma(idAlarma, codigoActivacionAlarma, codigoConfiguracionAlarma, nombreAlarma);
 		Integer idConfigurador = 40512641;
 		String nombreUserC = "Juan";
 		Usuario userC = new Configurador(idConfigurador, nombreUserC);
-		
-		((Administrador) admin).agregarUsuario(userC, central);
 
-		assertTrue(central.getUsuariosEnSistema().contains(userC));
+		((Administrador) admin).agregarUsuarioAUnaAlarma(idConfigurador, idAlarma, codigoConfiguracionAlarma);
+
+		assertTrue(alarma.getUsuariosValidados().contains(userC));
 	}
 
 	@Test(expected = CodigoAlarmaIncorrectoException.class)
@@ -80,13 +85,13 @@ public class AlarmasPrueba {
 
 		Boolean estado2 = Boolean.TRUE;
 		Sensor sensor2 = new Sensor(idSensor1, estado2);
-		
+
 		((Administrador) admin).agregarAlarma(alarma, central);
 		((Administrador) admin).agregarUsuario(userC, central);
 		((Administrador) admin).agregarUsuarioAUnaAlarma(idConfigurador, idAlarma, codigoConfiguracionAlarma);
 		((Administrador) admin).agregarSensorAAlarma(idAlarma, codigoConfiguracionAlarma, sensor1, idConfigurador);
 		((Administrador) admin).agregarSensorAAlarma(idAlarma, codigoConfiguracionAlarma, sensor2, idConfigurador);
-		
+
 	}
 
 	@Test

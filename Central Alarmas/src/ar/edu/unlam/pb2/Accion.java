@@ -9,7 +9,8 @@ public class Accion {
 	private Usuario userQueRealizaLaAccion;
 	private String fecha;
 	private TipoDeOp tipo;
-	Set<Sensor> sensores;
+
+	
 	public Accion(Integer idAccion, Alarma alarmaSobreLaQueSeRealizaLaAccion, Usuario userQueRealizaLaAccion,
 			String fecha, TipoDeOp tipo) {
 		super();
@@ -18,7 +19,7 @@ public class Accion {
 		this.userQueRealizaLaAccion = userQueRealizaLaAccion;
 		this.fecha = fecha;
 		this.tipo = tipo;
-		this.sensores = new HashSet<>();
+
 	}
 	public Integer getIdAccion() {
 		return idAccion;
@@ -50,11 +51,4 @@ public class Accion {
 	public void setTipo(TipoDeOp tipo) {
 		this.tipo = tipo;
 	}
-	public Set<Sensor> getSensores() {
-		return sensores;
-	}
-	public void setSensores(Set<Sensor> sensores) {
-		this.sensores = sensores;
-	}
-	
 }

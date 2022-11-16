@@ -3,6 +3,7 @@ package ar.edu.unlam.pb2;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.TreeSet;
 
 public class Alarma {
 

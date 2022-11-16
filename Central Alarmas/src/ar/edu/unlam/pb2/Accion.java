@@ -7,14 +7,15 @@ public class Accion {
 	private Integer idAccion;
 	private Alarma alarmaSobreLaQueSeRealizaLaAccion;
 	private Usuario userQueRealizaLaAccion;
-	private String fecha;
+	private Date fecha;
 	private TipoDeOp tipo;
 
+	private Integer contadorID= 0;
 	
-	public Accion(Integer idAccion, Alarma alarmaSobreLaQueSeRealizaLaAccion, Usuario userQueRealizaLaAccion,
-			String fecha, TipoDeOp tipo) {
+	public Accion(Alarma alarmaSobreLaQueSeRealizaLaAccion, Usuario userQueRealizaLaAccion,
+			Date fecha, TipoDeOp tipo) {
 		super();
-		this.idAccion = idAccion;
+		this.setIdAccion(++contadorID);
 		this.alarmaSobreLaQueSeRealizaLaAccion = alarmaSobreLaQueSeRealizaLaAccion;
 		this.userQueRealizaLaAccion = userQueRealizaLaAccion;
 		this.fecha = fecha;
@@ -39,10 +40,10 @@ public class Accion {
 	public void setUserQueRealizaLaAccion(Usuario userQueRealizaLaAccion) {
 		this.userQueRealizaLaAccion = userQueRealizaLaAccion;
 	}
-	public String getFecha() {
+	public Date getFecha() {
 		return fecha;
 	}
-	public void setFecha(String fecha) {
+	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
 	public TipoDeOp getTipo() {
@@ -51,4 +52,21 @@ public class Accion {
 	public void setTipo(TipoDeOp tipo) {
 		this.tipo = tipo;
 	}
+	@Override
+	public int hashCode() {
+		return Objects.hash(idAccion);
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Accion other = (Accion) obj;
+		return Objects.equals(idAccion, other.idAccion);
+	}
+	
+	
 }

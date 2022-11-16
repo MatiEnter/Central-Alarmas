@@ -22,7 +22,7 @@ public class AlarmasPrueba {
 	}
 
 	@Test
-	public void queSePuedaAgregarUnUsuarioConfiguradorAUnaAlarma() {
+	public void queSePuedaAgregarUnUsuarioConfiguradorAUnaAlarma() throws CodigoAlarmaIncorrectoException {
 		Usuario admin = new Administrador(40512640, "Matias");
 
 		Integer idAlarma = 1;
@@ -34,7 +34,7 @@ public class AlarmasPrueba {
 		String nombreUserC = "Juan";
 		Usuario userC = new Configurador(idConfigurador, nombreUserC);
 
-		((Administrador) admin).agregarUsuarioAUnaAlarma(idConfigurador, idAlarma, codigoConfiguracionAlarma);
+		((Administrador) admin).agregarUsuarioAUnaAlarma(userC, alarma, codigoConfiguracionAlarma);
 
 		assertTrue(alarma.getUsuariosValidados().contains(userC));
 	}
@@ -58,12 +58,12 @@ public class AlarmasPrueba {
 
 		((Administrador) admin).agregarAlarma(alarma, central);
 		((Administrador) admin).agregarUsuario(userC, central);
-		((Administrador) admin).agregarUsuarioAUnaAlarma(idConfigurador, idAlarma, codigoConfiguracionAlarma);
+		((Administrador) admin).agregarUsuarioAUnaAlarma(userC, alarma, "un codigo invalido");
 	}
 
 	@Test(expected = SensorDuplicadoException.class)
 	public void alAgregarUnSensorDuplicadoEnUnaAlarmaSeLanceUnaSensorDuplicadoException()
-			throws SensorDuplicadoException {
+			throws SensorDuplicadoException, CodigoAlarmaIncorrectoException {
 
 		Usuario admin = new Administrador(40512640, "Matias");
 		Central central = new Central();
@@ -87,9 +87,9 @@ public class AlarmasPrueba {
 
 		((Administrador) admin).agregarAlarma(alarma, central);
 		((Administrador) admin).agregarUsuario(userC, central);
-		((Administrador) admin).agregarUsuarioAUnaAlarma(idConfigurador, idAlarma, codigoConfiguracionAlarma);
-		((Administrador) admin).agregarSensorAAlarma(idAlarma, codigoConfiguracionAlarma, sensor1, idConfigurador);
-		((Administrador) admin).agregarSensorAAlarma(idAlarma, codigoConfiguracionAlarma, sensor2, idConfigurador);
+		((Administrador) admin).agregarUsuarioAUnaAlarma(userC, alarma, codigoConfiguracionAlarma);
+		((Administrador) admin).agregarSensorAAlarma(alarma, userC, codigoConfiguracionAlarma, sensor1, idSensor1);
+		((Administrador) admin).agregarSensorAAlarma(alarma, userC, codigoConfiguracionAlarma, sensor2, idSensor1);
 
 	}
 
@@ -129,5 +129,7 @@ public class AlarmasPrueba {
 		assertFalse(((Activador)userA).activarDesactivarAlarma(idAlarma, codigoActivacionAlarma, (Configurador)userC));
 		
 	}
+	
+	
 
 }

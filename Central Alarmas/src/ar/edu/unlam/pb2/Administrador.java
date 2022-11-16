@@ -1,6 +1,8 @@
 package ar.edu.unlam.pb2;
 
-public class Administrador extends Usuario implements Configurable, Activable{
+import java.util.Date;
+
+public class Administrador extends Usuario implements Configurable, Activable {
 
 	public Administrador(Integer dni, String nombre) {
 		super(dni, nombre);
@@ -19,21 +21,36 @@ public class Administrador extends Usuario implements Configurable, Activable{
 	public void agregarUsuarioAlaListaDeUsuariosValidosDeUnaALarma(Integer dniUsuario, Integer idAlarma,
 			String codigoActivacionAlarma) throws CodigoAlarmaIncorrectoException {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
-	public void agregarUsuarioAUnaAlarma(Integer dniUsuarioAAgregar, Integer idAlarma,
-			String codigoConfiguracionAlarma) {
-		// TODO Auto-generated method stub
-		
+	public void agregarUsuarioAUnaAlarma(Usuario usuarioAAgregar, Alarma alarma, String codigoConfiguracionAlarma)
+			throws CodigoAlarmaIncorrectoException {
+
+		if (alarma.getCodigoConfiguracionAlarma().equals(codigoConfiguracionAlarma)) {
+			alarma.getUsuariosValidados().add(usuarioAAgregar);
+			Accion accion = new Accion(alarma, usuarioAAgregar, new Date(), TipoDeOp.CONFIGURACION);
+			alarma.getAccionesRealizadas().add(accion);
+		} else {
+			throw new CodigoAlarmaIncorrectoException("El codigo ingresado es invalido");
+		}
+
 	}
 
 	@Override
-	public boolean agregarSensorAAlarma(Integer idAlarma, String codigoConfiguracionAlarma, Sensor sensor,
-			Integer idUsuarioConfigurador) {
-		// TODO Auto-generated method stub
-		return false;
+	public void agregarSensorAAlarma(Alarma alarma, Usuario usuario, String codigoConfiguracionAlarma, Sensor sensor,
+			Integer idSensorAAgregar) throws CodigoAlarmaIncorrectoException, SensorDuplicadoException {
+
+		if (sensor.getIdSensor().equals(idSensorAAgregar)) {
+			throw new SensorDuplicadoException("El sensor ya existe");
+		} else if (alarma.getCodigoConfiguracionAlarma().equals(codigoConfiguracionAlarma) == false) {
+			throw new CodigoAlarmaIncorrectoException("El codigo ingresado es invalido");
+		}
+		Accion accion = new Accion(alarma, usuario, new Date(), TipoDeOp.CONFIGURACION);
+		alarma.getAccionesRealizadas().add(accion);
+		alarma.getListaDeSensores().add(sensor);
+
 	}
 
 	@Override
